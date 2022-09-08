@@ -2,7 +2,7 @@ import telebot
 import serverFuncs
 from telebot import types
 import urllib
-import configure
+import configure 
 
 bot = telebot.TeleBot(configure.config['token'])
 
@@ -193,9 +193,8 @@ def process_car_odometer_check(message):
             if crash == False:
                 
                 x=urllib.parse.quote(user.plates)
-                url=types.WebAppInfo(webAppNewDamage+"?grz="+x+"&telephone="+user.phoneNumber);
+                url=types.WebAppInfo(webAppNewDamage+"?grz="+x+"&telephone="+user.phoneNumber+"&base="+urllib.parse.quote(user.base_address));
                 #
-                print(url)
                 button = types.KeyboardButton(text="Сформировать акт", web_app=url)
                 keyboard.add(button)
                 msg=bot.send_message(chat_id, "Далее необходимо сформировать акт", reply_markup=keyboard)
