@@ -2,12 +2,12 @@ import requests
 import json
 
 headers = {
-  'Authorization': 'Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MzQ2MjYwOQ==',
-  'Content-Type': 'application/json'
+    'Authorization': 'Basic V0E6V2E1ODUxMzM1', 
+    'Content-Type': 'application/json'
 }
 
-def checkGRZ(grz):
-    url = "http://тест.атимо.рф/Taksopark/hs/WebApp/GetDataGRZ?grz="+grz
+def checkGRZ(grz, baseAdress):
+    url = baseAdress+"/GetDataGRZ?grz="+grz
     response = requests.request("GET", url, headers=headers, data="")
     data=json.loads(response.text)
     grzInfo=[None,None,None,None,None]
@@ -28,13 +28,15 @@ def checkUser(userPhone):
     payload = json.dumps({
     "Telephone": userPhone
     })
-    url = "http://тест.атимо.рф/Taksopark/hs/WebApp/UserAuthorization"
+    url = "https://тест.атимо.рф/ATM/hs/WebApp/UserAuthorization"
     response = requests.request("GET", url, headers=headers, data=payload)
+    print(response.text)
     data=json.loads(response.text)
     if data["Success"]==True:
         contacts = [
             data["Success"],
-            data["User"]
+            data["User"],
+            data["Base_address"],
         ]  
         return contacts
     else:

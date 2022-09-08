@@ -1,13 +1,13 @@
 import telebot
 import serverFuncs
 from telebot import types
-
+import urllib
 import configure
 
 bot = telebot.TeleBot(configure.config['token'])
 
 webAppSignature = types.WebAppInfo("https://remarkable-daifuku-2f8ee5.netlify.app/")
-webAppNewDamage = types.WebAppInfo("https://mellow-bombolone-bcb5a7.netlify.app/")
+webAppNewDamage = "https://mellow-bombolone-bcb5a7.netlify.app/"
 
 bot.set_my_commands([
     telebot.types.BotCommand("/start", "Перезапуск бота"),
@@ -25,6 +25,7 @@ class User:
         self.aktNumber = None 
         self.odometer = None
         self.crashes=None
+        self.base_address=None
 #
 def send_help(message):
     chat_id=message.chat.id
@@ -60,7 +61,7 @@ def send_welcome(message):
 
 #
 def process_check_phone(message):
-    try:
+    #try:
         chat_id = message.chat.id
         keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
         if message.text == "Добавить водителя":
@@ -78,6 +79,7 @@ def process_check_phone(message):
             if (contacts[0]):
                 user= User(message.text)
                 user.name=contacts[1]
+                user.base_address=contacts[2]
                 user_dict[chat_id] = user
                 msg=bot.send_message(chat_id, f"{contacts[1]}, выберите действие.", reply_markup=createInlineKeyboardWithFuncs())
             else:
@@ -90,6 +92,7 @@ def process_check_phone(message):
             if (contacts[0]):
                 user= User(message.text)
                 user.name=contacts[1]
+                user.base_address=contacts[2]
                 user_dict[chat_id] = user
                 msg=bot.send_message(chat_id, f"{contacts[1]}, выберите действие.", reply_markup=createInlineKeyboardWithFuncs())
             else:
@@ -101,9 +104,9 @@ def process_check_phone(message):
                 else:
                     msg=bot.send_message(chat_id, "Перезагрузка.")
                     send_welcome(msg)
-    except Exception as e:
-        msg=bot.send_message(chat_id, 'Упс. Что-то пошло не так')
-        restart(msg)
+    #except Exception as e:
+    #    msg=bot.send_message(chat_id, 'Упс. Что-то пошло не так')
+    #    restart(msg)
 
 @bot.callback_query_handler(func=lambda call: True)
 def process_choose_func(call):
@@ -129,17 +132,16 @@ def process_car_accept(message):
     try:
         chat_id=message.chat.id
         user = user_dict[chat_id]
-        carInfo=serverFuncs.checkGRZ(message.text)
+        carInfo=serverFuncs.checkGRZ(message.text, user.base_address)
         keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
         
         if (carInfo[1]!=None):
             if (carInfo[2]!=None):
                 keyboard.add("Да", "Нет")
-                user.plates=carInfo[1]
+                user.plates=message.text
                 user.driver=carInfo[2]
                 user.aktNumber=carInfo[3]
                 msg= bot.send_message(chat_id, f"Водитель \"{carInfo[2]}\" сдаёт автомобиль, выданный по акту №{carInfo[3]}?",reply_markup=keyboard )
-                print(user)
                 bot.register_next_step_handler(msg, process_car_accept_check)
             else:
                 bot.send_message(chat_id, "Водитель не найден. Проверьте введенные данные")
@@ -173,7 +175,7 @@ def process_car_accept_check(message):
         restart(msg)
         
 def process_car_odometer_check(message):
-    try:
+    #try:
         chat_id=message.chat.id
         user = user_dict[chat_id]
 
@@ -189,10 +191,14 @@ def process_car_odometer_check(message):
             crash=False
             user.crashes=crash
             if crash == False:
-                button = types.KeyboardButton(text="Добавить повреждение", web_app=webAppNewDamage)
-                button2 = types.KeyboardButton(text="Не добавлять", web_app=webAppSignature)
-                keyboard.add(button, button2)
-                msg=bot.send_message(chat_id, "У автомобиля нет записанных повреждений, необходимо добавить?", reply_markup=keyboard)
+                
+                x=urllib.parse.quote(user.plates)
+                url=types.WebAppInfo(webAppNewDamage+"?grz="+x+"&telephone="+user.phoneNumber);
+                #
+                print(url)
+                button = types.KeyboardButton(text="Сформировать акт", web_app=url)
+                keyboard.add(button)
+                msg=bot.send_message(chat_id, "Далее необходимо сформировать акт", reply_markup=keyboard)
             else:
                 keyboard.add("Просмотреть", "Добавить", "Не добавлять")
                 msg=bot.send_message(chat_id, "У автомобиля есть записанные повреждения, хотите просмотреть или добавить новое?", reply_markup=keyboard)
@@ -203,9 +209,9 @@ def process_car_odometer_check(message):
             bot.register_next_step_handler(msg, process_car_odometer_check)
         else:
             restart(message)
-    except Exception as e:
-        msg=bot.send_message(chat_id, 'Упс. Что-то пошло не так')
-        restart(msg)
+    #except Exception as e:
+    #    msg=bot.send_message(chat_id, 'Упс. Что-то пошло не так')
+    #    restart(msg)
 
 
 def process_check_damage(message):
@@ -213,7 +219,6 @@ def process_check_damage(message):
         chat_id=message.chat.id
         user = user_dict[chat_id]
         keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-
         if message.text=="Не добавлять":
             button = types.KeyboardButton(text="Поставить подпись", web_app=webAppSignature)
             keyboard.add(button)
