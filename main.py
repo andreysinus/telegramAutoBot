@@ -61,52 +61,56 @@ def send_welcome(message):
 
 #
 def process_check_phone(message):
-    #try:
+    try:
         chat_id = message.chat.id
         keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-        if message.text == "Добавить водителя":
-            button_phone = types.KeyboardButton(text="Отправить телефонный номер", request_contact=True)
-            keyboard.add(button_phone)
-            bot.send_message(chat_id, "Нажмите кнопку внизу экрана или отправьте номер телефона (напр. 79998887766) в сообщении:")
-
-            #Поменять при необходимости
-            msg=bot.send_message(chat_id, "Команда не доработана.")
-            restart(msg)
-            return
-        
-        if message.contact is not None:
-            contacts=serverFuncs.checkUser(message.contact.phone_number)
-            if (contacts[0]):
-                user= User(message.text)
-                user.name=contacts[1]
-                user.base_address=contacts[2]
-                user_dict[chat_id] = user
-                msg=bot.send_message(chat_id, f"{contacts[1]}, выберите действие.", reply_markup=createInlineKeyboardWithFuncs())
-            else:
+        if message.text != "/start":
+            if message.text == "Добавить водителя":
                 button_phone = types.KeyboardButton(text="Отправить телефонный номер", request_contact=True)
-                keyboard.add(button_phone, "Добавить нового водителя")
-                msg=bot.send_message(chat_id, "Сотрудник отсутствует в базе, введите номер телефона еще раз или добавьте нового.", reply_markup=keyboard)
-                bot.register_next_step_handler(msg, process_check_phone)
-        else:
-            contacts=serverFuncs.checkUser(message.text)
-            if (contacts[0]):
-                user= User(message.text)
-                user.name=contacts[1]
-                user.base_address=contacts[2]
-                user_dict[chat_id] = user
-                msg=bot.send_message(chat_id, f"{contacts[1]}, выберите действие.", reply_markup=createInlineKeyboardWithFuncs())
-            else:
-                if (message.text!="/start"):
+                keyboard.add(button_phone)
+                bot.send_message(chat_id, "Нажмите кнопку внизу экрана или отправьте номер телефона (напр. 79998887766) в сообщении:")
+
+                #Поменять при необходимости
+                msg=bot.send_message(chat_id, "Команда не доработана.")
+                restart(msg)
+                return
+            
+            if message.contact is not None:
+                contacts=serverFuncs.checkUser(message.contact.phone_number)
+                if (contacts[0]):
+                    user= User(message.text)
+                    user.name=contacts[1]
+                    user.base_address=contacts[2]
+                    user_dict[chat_id] = user
+                    msg=bot.send_message(chat_id, f"{contacts[1]}, выберите действие.", reply_markup=createInlineKeyboardWithFuncs())
+                else:
                     button_phone = types.KeyboardButton(text="Отправить телефонный номер", request_contact=True)
                     keyboard.add(button_phone, "Добавить нового водителя")
                     msg=bot.send_message(chat_id, "Сотрудник отсутствует в базе, введите номер телефона еще раз или добавьте нового.", reply_markup=keyboard)
                     bot.register_next_step_handler(msg, process_check_phone)
+            else:
+                contacts=serverFuncs.checkUser(message.text)
+                if (contacts[0]):
+                    user= User(message.text)
+                    user.name=contacts[1]
+                    user.base_address=contacts[2]
+                    user_dict[chat_id] = user
+                    msg=bot.send_message(chat_id, f"{contacts[1]}, выберите действие.", reply_markup=createInlineKeyboardWithFuncs())
                 else:
-                    msg=bot.send_message(chat_id, "Перезагрузка.")
-                    send_welcome(msg)
-    #except Exception as e:
-    #    msg=bot.send_message(chat_id, 'Упс. Что-то пошло не так')
-    #    restart(msg)
+                    if (message.text!="/start"):
+                        button_phone = types.KeyboardButton(text="Отправить телефонный номер", request_contact=True)
+                        keyboard.add(button_phone, "Добавить нового водителя")
+                        msg=bot.send_message(chat_id, "Сотрудник отсутствует в базе, введите номер телефона еще раз или добавьте нового.", reply_markup=keyboard)
+                        bot.register_next_step_handler(msg, process_check_phone)
+                    else:
+                        msg=bot.send_message(chat_id, "Перезагрузка.")
+                        send_welcome(msg)
+        else: 
+            msg=bot.send_message(chat_id, "Перезагрузка.")
+            send_welcome(msg)
+    except Exception as e:
+        msg=bot.send_message(chat_id, 'Упс. Что-то пошло не так')
+        restart(msg)
 
 @bot.callback_query_handler(func=lambda call: True)
 def process_choose_func(call):
@@ -242,13 +246,9 @@ def process_check_damage(message):
 @bot.message_handler(content_types="web_app_data")
 def webAppAnswer(webAppMes):
     try:
-        keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-        if webAppMes.web_app_data.data=="Повреждения были отправлены" :
-            button = types.KeyboardButton(text="Поставить подпись", web_app=webAppSignature)
-            keyboard.add(button)
-            bot.send_message(webAppMes.chat.id, f"Повреждения были опубликованы. \nДалее необходимо поставить подпись на экране, нажав на кнопку \"Поставить подпись\"",reply_markup=keyboard)
-        elif webAppMes.web_app_data.data=="Подпись была отправлена":
-            bot.send_message(webAppMes.chat.id, f"Подпись была подтверждена. Выберите действие.", reply_markup=createInlineKeyboardWithFuncs())
+        if webAppMes.web_app_data.data=="Акт был сформирован" :
+            bot.send_message(webAppMes.chat.id, f"Акт был сформирован. Выберите действие.", reply_markup=createInlineKeyboardWithFuncs())    
+        else: bot.send_message(webAppMes.chat.id, f"Ошибка! {webAppMes.web_app_data.data}", reply_markup=createInlineKeyboardWithFuncs())  
     except Exception as e:
         msg=bot.send_message(webAppMes.chat.id, 'Упс. Что-то пошло не так')
         restart(msg)
