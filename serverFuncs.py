@@ -51,7 +51,7 @@ def getOdometer(grz):
     url = f"https://тест.атимо.рф/ATM/hs/WebApp/GetOdometer?grz={grz}"
 
     response = requests.request("GET", url, headers=headers, data={})
-    print(response.text)
+
     data=json.loads(response.text)
     if data["Success"]==True:
         odometer = [
@@ -69,7 +69,7 @@ def getDriver(driverPhone):
     url = f"https://тест.атимо.рф/ATM/hs/WebApp/GetDriver?driver_phone={driverPhone}"
 
     response = requests.request("GET", url, headers=headers, data={})
-    print(response.text)
+
     data=json.loads(response.text)
     return data["Success"]
 
@@ -77,7 +77,7 @@ def getCar(grz):
     url = f"https://тест.атимо.рф/ATM/hs/WebApp/GetCar?grz={grz}"
 
     response = requests.request("GET", url, headers=headers, data={})
-    print(response.text)
+
     data=json.loads(response.text)
     return data["Success"]
 
