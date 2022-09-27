@@ -272,7 +272,7 @@ def process_car_inspection_odometer(message):
             carInfo=serverFuncs.getOdometer(user.plates)
             if carInfo[0]==True and (carInfo[1]<int(message.text)+100 and carInfo[1]>int(message.text)-100):
                 x=urllib.parse.quote(user.plates)
-                url=types.WebAppInfo(webAppPretrip+"?grz="+x+"&mechPhone="+user.phoneNumber+"&driverPhone="+user.voditel+"&base="+urllib.parse.quote(user.base_address));
+                url=types.WebAppInfo(webAppPretrip+"?grz="+x+"&mechPhone="+user.phoneNumber+"&driverPhone="+user.voditel+"&odo="+carInfo[1]+"&base="+urllib.parse.quote(user.base_address));
                 button = types.KeyboardButton(text="Проверка авто", web_app=url)
                 keyboard.add(button)
                 msg=bot.send_message(chat_id, f"Для прохождения листа проверок нажмите на кнопку \"Проверка авто\"", reply_markup=keyboard)
