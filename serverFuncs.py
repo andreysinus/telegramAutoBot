@@ -81,3 +81,5 @@ def getCar(grz):
     data=json.loads(response.text)
     return data["Success"]
 
+
+print(getOdometer("СВ30877"))
