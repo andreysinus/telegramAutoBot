@@ -235,7 +235,7 @@ def process_car_odometer_check(message):
         keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
         if odometerValue[0]==True and findComands(message)==False:
             #Настроить условия
-            if int(message.text)>int(odometerValue[1])-500 and int(message.text)<int(odometerValue[1])+500 :
+            if int(message.text)>int(odometerValue[1])-500 and int(message.text)<int(odometerValue[1])+2000 :
                 bot.reply_to(message, "Пробег соответствует условиям")
                 user.odometer=int(message.text)
                 x=urllib.parse.quote(user.plates)
@@ -326,9 +326,9 @@ def process_car_inspection_odometer(message):
         if findComands(message)==False:
             if message.text!="Назад" or message.text!="Отмена":
                 carInfo=serverFuncs.getOdometer(user.plates)
-                if carInfo[0]==True and (carInfo[1]<int(message.text)+100 and carInfo[1]>int(message.text)-100):
+                if carInfo[0]==True and (carInfo[1]>int(message.text)):
                     x=urllib.parse.quote(user.plates)
-                    url=types.WebAppInfo(webAppPretrip+"?grz="+str(x)+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(carInfo[1])+"&base="+urllib.parse.quote(user.base_address));
+                    url=types.WebAppInfo(webAppPretrip+"?grz="+str(x)+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(message.text)+"&base="+urllib.parse.quote(user.base_address));
                     button = types.KeyboardButton(text="Проверка авто", web_app=url)
                     keyboard.add(button)
                     msg=bot.send_message(chat_id, f"Для прохождения листа проверок нажмите на кнопку \"Проверка авто\"", reply_markup=keyboard)
