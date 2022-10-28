@@ -354,8 +354,11 @@ def process_car_inspection_odometer(message):
 def webAppAnswer(webAppMes):
     try:
         if webAppMes.web_app_data.data=="Акт был сформирован" :
-            bot.send_message(webAppMes.chat.id, f"Акт был сформирован. Выберите действие.", reply_markup=createInlineKeyboardWithFuncs())    
-        else: bot.send_message(webAppMes.chat.id, f"Ошибка! {webAppMes.web_app_data.data}", reply_markup=createInlineKeyboardWithFuncs())  
+            bot.send_message(webAppMes.chat.id, f"Акт был сформирован.", reply_markup=types.ReplyKeyboardRemove())    
+            bot.send_message(webAppMes.chat.id, f"Выберите действие.", reply_markup=createInlineKeyboardWithFuncs())    
+        else: 
+            bot.send_message(webAppMes.chat.id, "Ошибка!", reply_markup=types.ReplyKeyboardRemove())  
+            bot.send_message(webAppMes.chat.id, f"{webAppMes.web_app_data.data}", reply_markup=createInlineKeyboardWithFuncs())  
     except Exception as e:
         msg=bot.send_message(webAppMes.chat.id, 'Упс. Что-то пошло не так')
         restart(msg)
