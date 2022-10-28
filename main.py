@@ -326,7 +326,7 @@ def process_car_inspection_odometer(message):
         if findComands(message)==False:
             if message.text!="Назад" or message.text!="Отмена":
                 carInfo=serverFuncs.getOdometer(user.plates)
-                if carInfo[0]==True and (carInfo[1]>int(message.text)):
+                if carInfo[0]==True and (carInfo[1]<int(message.text)):
                     x=urllib.parse.quote(user.plates)
                     url=types.WebAppInfo(webAppPretrip+"?grz="+str(x)+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(message.text)+"&base="+urllib.parse.quote(user.base_address));
                     button = types.KeyboardButton(text="Проверка авто", web_app=url)
