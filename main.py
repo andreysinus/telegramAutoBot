@@ -114,6 +114,7 @@ def process_check_phone(message):
                     user.name=contacts[1]
                     user.base_address=contacts[2]
                     user_dict[chat_id] = user
+                    print(user)
                     msg=bot.send_message(chat_id, f"{contacts[1]}, выберите действие.", reply_markup=createInlineKeyboardWithFuncs())
                 else:
                     button_phone = types.KeyboardButton(text="Отправить телефонный номер", request_contact=True)
