@@ -107,7 +107,6 @@ def process_check_phone(message):
                 msg=bot.send_message(chat_id, "Команда не доработана.")
                 restart(msg)
                 return
-            
             if message.contact is not None:
                 contacts=serverFuncs.checkUser(message.contact.phone_number)
                 if (contacts[0]):
@@ -232,13 +231,12 @@ def process_car_odometer_check(message):
     try:
         chat_id=message.chat.id
         user = user_dict[chat_id]
-
-        #Добавить обработку пробега из базы
-        odometerValue=123908
+        odometerValue=serverFuncs.getOdometer(user.plates)
+        print(odometerValue)
         keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-        if findComands(message)==False:
+        if odometerValue[0]==True and findComands(message)==False:
             #Настроить условия
-            if int(message.text)>odometerValue-500 and int(message.text)<odometerValue+500 :
+            if int(message.text)>int(odometerValue[1])-500 and int(message.text)<int(odometerValue[1])+500 :
                 bot.reply_to(message, "Пробег соответствует условиям")
                 user.odometer=int(message.text)
                 x=urllib.parse.quote(user.plates)
@@ -299,6 +297,7 @@ def process_car_inspection_grz(message):
         if findComands(message)==False:
             if message.text!="Назад" or message.text!="Отмена":
                 carInfo=serverFuncs.getCar(message.text)
+               
                 if carInfo==True:
                     user.plates=message.text
                     msg=bot.send_message(chat_id, f"Введите пробег.")
@@ -330,7 +329,7 @@ def process_car_inspection_odometer(message):
                 carInfo=serverFuncs.getOdometer(user.plates)
                 if carInfo[0]==True and (carInfo[1]<int(message.text)+100 and carInfo[1]>int(message.text)-100):
                     x=urllib.parse.quote(user.plates)
-                    url=types.WebAppInfo(webAppPretrip+"?grz="+x+"&mechPhone="+user.phoneNumber+"&driverPhone="+user.voditel+"&odo="+carInfo[1]+"&base="+urllib.parse.quote(user.base_address));
+                    url=types.WebAppInfo(webAppPretrip+"?grz="+str(x)+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(carInfo[1])+"&base="+urllib.parse.quote(user.base_address));
                     button = types.KeyboardButton(text="Проверка авто", web_app=url)
                     keyboard.add(button)
                     msg=bot.send_message(chat_id, f"Для прохождения листа проверок нажмите на кнопку \"Проверка авто\"", reply_markup=keyboard)
