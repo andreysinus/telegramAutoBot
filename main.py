@@ -232,7 +232,6 @@ def process_car_odometer_check(message):
         chat_id=message.chat.id
         user = user_dict[chat_id]
         odometerValue=serverFuncs.getOdometer(user.plates)
-        print(odometerValue)
         keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
         if odometerValue[0]==True and findComands(message)==False:
             #Настроить условия
