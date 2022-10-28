@@ -110,7 +110,7 @@ def process_check_phone(message):
             if message.contact is not None:
                 contacts=serverFuncs.checkUser(message.contact.phone_number)
                 if (contacts[0]):
-                    user= User(message.text)
+                    user= User(message.contact.phone_number)
                     user.name=contacts[1]
                     user.base_address=contacts[2]
                     user_dict[chat_id] = user
