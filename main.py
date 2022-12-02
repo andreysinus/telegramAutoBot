@@ -8,9 +8,6 @@ import configure
 #Инициализация бота
 bot = telebot.TeleBot(configure.config['token'])
 
-#Адреса WebApps-ов
-webAppNewDamage = "https://mellow-bombolone-bcb5a7.netlify.app/"
-webAppPretrip = "https://super-kataifi-b967c7.netlify.app/"
 
 #Настройка "Menu" в боте
 bot.set_my_commands([
@@ -239,7 +236,7 @@ def process_car_odometer_check(message):
                 bot.reply_to(message, "Пробег соответствует условиям")
                 user.odometer=int(message.text)
                 x=urllib.parse.quote(user.plates)
-                url=types.WebAppInfo(webAppNewDamage+"?grz="+x+"&telephone="+user.phoneNumber+"&base="+urllib.parse.quote(user.base_address));
+                url=types.WebAppInfo(configure.webAppNewDamage+"?grz="+x+"&telephone="+user.phoneNumber+"&base="+urllib.parse.quote(user.base_address));
                 #
                 button = types.KeyboardButton(text="Сформировать акт", web_app=url)
                 keyboard.add(button)
@@ -328,7 +325,8 @@ def process_car_inspection_odometer(message):
                 carInfo=serverFuncs.getOdometer(user.plates)
                 if carInfo[0]==True and (carInfo[1]<int(message.text)):
                     x=urllib.parse.quote(user.plates)
-                    url=types.WebAppInfo(webAppPretrip+"?grz="+str(x)+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(message.text)+"&base="+urllib.parse.quote(user.base_address));
+                    url=types.WebAppInfo(configure.webAppPretrip+"?grz="+str(x)+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(message.text)+"&base="+urllib.parse.quote(user.base_address));
+                    print(url)
                     button = types.KeyboardButton(text="Проверка авто", web_app=url)
                     keyboard.add(button)
                     msg=bot.send_message(chat_id, f"Для прохождения листа проверок нажмите на кнопку \"Проверка авто\"", reply_markup=keyboard)
