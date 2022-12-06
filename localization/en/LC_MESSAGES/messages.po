@@ -1,0 +1,197 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2022-12-06 15:58+0300\n"
+"PO-Revision-Date: 2022-12-06 16:25+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: main.py:43
+msgid "Pre-trip inspection"
+msgstr "Pre-trip inspection"
+
+#: main.py:44
+msgid "Car acceptance"
+msgstr "Car acceptance"
+
+#: main.py:45 main.py:156
+msgid "Exit"
+msgstr "Exit"
+
+#: main.py:63
+msgid ""
+"Hello! \n"
+"Please login to get started."
+msgstr ""
+"Hello! \n"
+"Please login to get started."
+
+#: main.py:65 main.py:113 main.py:126
+msgid "Send phone number"
+msgstr "Send phone number"
+
+#: main.py:67
+msgid ""
+"Press the button at the bottom of the screen or send a phone number (ex. "
+"79998887766) in a message:"
+msgstr ""
+"Press the button at the bottom of the screen or send a phone number (ex. "
+"79998887766) in a message:"
+
+#: main.py:75
+msgid ""
+"\n"
+"        To start work, you need to authorize using your mobile phone!\n"
+"        \n"
+"Next, you need to select the required operation (for example, \"Pretrip "
+"inspection\".\n"
+"        \n"
+"After choosing, follow the bot's instructions.\n"
+"        \n"
+"In case of technical problems, contact:\n"
+"8 (800) 101-40-64, ATIMO technical support hotline.\n"
+"        "
+msgstr ""
+"To start work, you need to authorize using your mobile phone!\n"
+"\n"
+"Next, you need to select the required operation (for example, \"Pretrip "
+"inspection\".\n"
+" \n"
+"After choosing, follow the bot's instructions.\n"
+" \n"
+"In case of technical problems, contact:\n"
+"8 (800) 101-40-64, ATIMO technical support hotline."
+
+#: main.py:82 main.py:111 main.py:123 main.py:182 main.py:186 main.py:209
+#: main.py:273 main.py:302 main.py:334
+msgid "select an action."
+msgstr "select an action."
+
+#: main.py:86 main.py:139 main.py:160 main.py:194 main.py:220 main.py:254
+#: main.py:282 main.py:310 main.py:342 main.py:357
+msgid "Oops. Something went wrong"
+msgstr "Oops. Something went wrong"
+
+#: main.py:114 main.py:127
+msgid "The employee is not in the database, enter the phone number again."
+msgstr "The employee is not in the database, enter the phone number again."
+
+#: main.py:130 main.py:363
+msgid "Restart."
+msgstr "Restart."
+
+#: main.py:148
+msgid "Enter vehicle number"
+msgstr "Enter vehicle number"
+
+#: main.py:152
+msgid "Enter the driver's phone number"
+msgstr "Enter the driver's phone number"
+
+#: main.py:173
+msgid "No"
+msgstr "No"
+
+#: main.py:173
+msgid "Yes"
+msgstr "Yes"
+
+#: main.py:177
+msgid "The driver"
+msgstr "The driver"
+
+#: main.py:177
+msgid "hands over the car issued under the act No."
+msgstr "hands over the car issued under the act No."
+
+#: main.py:180
+msgid "Driver not found. Check the entered data"
+msgstr "Driver not found. Check the entered data"
+
+#: main.py:184
+msgid "Vehicle not found. Check the entered data"
+msgstr "Vehicle not found. Check the entered data"
+
+#: main.py:205
+msgid "Enter vehicle mileage"
+msgstr "Enter vehicle mileage"
+
+#: main.py:208
+msgid "You abandoned the action"
+msgstr "You abandoned the action"
+
+#: main.py:211
+msgid "Command not found"
+msgstr "Command not found"
+
+#: main.py:233
+msgid "Mileage meets conditions"
+msgstr "Mileage meets conditions"
+
+#: main.py:238
+msgid "Form an act"
+msgstr "Form an act"
+
+#: main.py:240
+msgid "Next, you need to create an act"
+msgstr "Next, you need to create an act"
+
+#: main.py:242
+msgid "Mileage does not meet conditions"
+msgstr "Mileage does not meet conditions"
+
+#: main.py:243
+msgid "Enter mileage again"
+msgstr "Enter mileage again"
+
+#: main.py:267
+msgid "Enter the vehicle number."
+msgstr "Enter the vehicle number."
+
+#: main.py:270
+msgid "Driver not found, please enter a different phone number."
+msgstr "Driver not found, please enter a different phone number."
+
+#: main.py:296
+msgid "Enter mileage"
+msgstr "Enter mileage"
+
+#: main.py:299
+msgid "Vehicle not found, please enter another number"
+msgstr "Vehicle not found, please enter another number"
+
+#: main.py:327
+msgid "Car check"
+msgstr "Car check"
+
+#: main.py:329
+msgid "To go through the list of checks, click on the button \"Car check\""
+msgstr ""
+"To go through the list of checks, click on the button \"Car check\""
+
+#: main.py:331
+msgid "Mileage is not correct, please re-enter"
+msgstr "Mileage is not correct, please re-enter"
+
+#: main.py:351
+msgid "The act has been formed."
+msgstr "The act has been formed."
+
+#: main.py:352
+msgid "Select an action."
+msgstr "Select an action."
+
+#: main.py:354
+msgid "Error!"
+msgstr "Error!"

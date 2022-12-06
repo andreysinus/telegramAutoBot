@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2022-12-06 15:58+0300\n"
+"PO-Revision-Date: 2022-12-06 16:15+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: main.py:43
+msgid "Pre-trip inspection"
+msgstr "Предрейсовый осмотр"
+
+#: main.py:44
+msgid "Car acceptance"
+msgstr "Приёмка авто"
+
+#: main.py:45 main.py:156
+msgid "Exit"
+msgstr "Выход"
+
+#: main.py:63
+msgid ""
+"Hello! \n"
+"Please login to get started."
+msgstr ""
+"Здравствуйте! \n"
+"Для начала работы пройдите авторизацию."
+
+#: main.py:65 main.py:113 main.py:126
+msgid "Send phone number"
+msgstr "Отправить телефонный номер"
+
+#: main.py:67
+msgid ""
+"Press the button at the bottom of the screen or send a phone number (ex. "
+"79998887766) in a message:"
+msgstr ""
+"Нажмите кнопку внизу экрана или отправьте номер телефона (напр. "
+"79998887766) в сообщении:"
+
+#: main.py:75
+msgid ""
+"\n"
+"        To start work, you need to authorize using your mobile phone!\n"
+"        \n"
+"Next, you need to select the required operation (for example, \"Pretrip "
+"inspection\".\n"
+"        \n"
+"After choosing, follow the bot's instructions.\n"
+"        \n"
+"In case of technical problems, contact:\n"
+"8 (800) 101-40-64, ATIMO technical support hotline.\n"
+"        "
+msgstr ""
+"Для начала работ необходимо произвести авторизацию с помощью своего "
+"мобильного телефона!\n"
+"\n"
+"Далее требуется выбрать необходимую операцию (например,\\\"Предрейсовый "
+"осмотр\\\". \n"
+"\n"
+"После выбора нужно следовать инструкциям бота.\n"
+"\n"
+"При технический неполадках обратиться по номеру:\n"
+"8 (800) 101-40-64, горячая линия техподдержки АТИМО."
+
+#: main.py:82 main.py:111 main.py:123 main.py:182 main.py:186 main.py:209
+#: main.py:273 main.py:302 main.py:334
+msgid "select an action."
+msgstr "выберете действие."
+
+#: main.py:86 main.py:139 main.py:160 main.py:194 main.py:220 main.py:254
+#: main.py:282 main.py:310 main.py:342 main.py:357
+msgid "Oops. Something went wrong"
+msgstr "Упс. Что-то пошло не так"
+
+#: main.py:114 main.py:127
+msgid "The employee is not in the database, enter the phone number again."
+msgstr "Сотрудник отсутствует в базе, введите номер телефона еще раз."
+
+#: main.py:130 main.py:363
+msgid "Restart."
+msgstr "Перезагрузка."
+
+#: main.py:148
+msgid "Enter vehicle number"
+msgstr "Введите номер авто"
+
+#: main.py:152
+msgid "Enter the driver's phone number"
+msgstr "Введите номер телефона водителя"
+
+#: main.py:173
+msgid "No"
+msgstr "Нет"
+
+#: main.py:173
+msgid "Yes"
+msgstr "Да"
+
+#: main.py:177
+msgid "The driver"
+msgstr "Водитель"
+
+#: main.py:177
+msgid "hands over the car issued under the act No."
+msgstr "сдаёт автомобиль, выданный по акту №"
+
+#: main.py:180
+msgid "Driver not found. Check the entered data"
+msgstr "Водитель не найден. Проверьте введенные данные"
+
+#: main.py:184
+msgid "Vehicle not found. Check the entered data"
+msgstr "Автомобиль не найден. Проверьте введенные данные"
+
+#: main.py:205
+msgid "Enter vehicle mileage"
+msgstr "Введите пробег автомобиля"
+
+#: main.py:208
+msgid "You abandoned the action"
+msgstr "Вы отменили действие"
+
+#: main.py:211
+msgid "Command not found"
+msgstr "Команда не найдена"
+
+#: main.py:233
+msgid "Mileage meets conditions"
+msgstr "Пробег соответствует пробегу"
+
+#: main.py:238
+msgid "Form an act"
+msgstr "Сформировать акт"
+
+#: main.py:240
+msgid "Next, you need to create an act"
+msgstr "Далее необходимо сформировать акт"
+
+#: main.py:242
+msgid "Mileage does not meet conditions"
+msgstr "Пробег не соответсвует условиям"
+
+#: main.py:243
+msgid "Enter mileage again"
+msgstr "Введите пробег еще раз"
+
+#: main.py:267
+msgid "Enter the vehicle number."
+msgstr "Введите номер автомобиля"
+
+#: main.py:270
+msgid "Driver not found, please enter a different phone number."
+msgstr "Водитель не найден, пожалуйста, введите другой номер телефона"
+
+#: main.py:296
+msgid "Enter mileage"
+msgstr "Введите пробег"
+
+#: main.py:299
+msgid "Vehicle not found, please enter another number"
+msgstr "Авто не найдено, введите другой номер"
+
+#: main.py:327
+msgid "Car check"
+msgstr "Проверка авто"
+
+#: main.py:329
+msgid "To go through the list of checks, click on the button \"Car check\""
+msgstr "Для прохождения листа проверок нажмите на кнопку \"Проверка авто\""
+
+#: main.py:331
+msgid "Mileage is not correct, please re-enter"
+msgstr "Пробег не корректный, пожалуйста, введите еще раз"
+
+#: main.py:351
+msgid "The act has been formed."
+msgstr "Акт сформирован"
+
+#: main.py:352
+msgid "Select an action."
+msgstr "Выберете действие"
+
+#: main.py:354
+msgid "Error!"
+msgstr "Ошибка!"
