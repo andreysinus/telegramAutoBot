@@ -178,7 +178,7 @@ def process_choose_func(call):
 
 # Приёмка авто - Проверка авто
 def process_car_accept(message):
-    try:
+    #try:
         chat_id=message.chat.id
         user = user_dict[chat_id]
         carInfo=serverFuncs.checkGRZ(message.text, user.base_address)
@@ -190,7 +190,7 @@ def process_car_accept(message):
                     user.plates=message.text
                     user.driver=carInfo[2]
                     user.aktNumber=carInfo[3]
-                    msg= bot.send_message(chat_id, _("The driver")+" \"{carInfo[2]}\" "+_("hands over the car issued under the act No.")+ {carInfo[3]}+ "?",reply_markup=keyboard )
+                    msg= bot.send_message(chat_id, _("The driver")+f" \"{carInfo[2]}\" "+_("hands over the car issued under the act No.")+ carInfo[3]+ "?",reply_markup=keyboard )
                     bot.register_next_step_handler(msg, process_car_accept_check)
                 else:
                     bot.send_message(chat_id, _("Driver not found. Check the entered data"))
@@ -208,9 +208,9 @@ def process_car_accept(message):
             else: 
                 restart(message);
             return
-    except Exception as e:
-        msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
-        restart(msg)
+    #except Exception as e:
+     #   msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
+      #  restart(msg)
 
 
 #Приёмка авто - проверка пробега
@@ -242,7 +242,7 @@ def process_car_accept_check(message):
         
 #Приёмка авто - проверка пробега и открытие WebApp 
 def process_car_odometer_check(message):
-    try:
+    #try:
         chat_id=message.chat.id
         user = user_dict[chat_id]
         odometerValue=serverFuncs.getOdometer(user.plates)
@@ -253,7 +253,7 @@ def process_car_odometer_check(message):
                 bot.reply_to(message, _("Mileage meets conditions"))
                 user.odometer=int(message.text)
                 x=urllib.parse.quote(user.plates)
-                url=types.WebAppInfo(configure.webAppNewDamage+"?grz="+x+"&telephone="+user.phoneNumber+"&base="+urllib.parse.quote(user.base_address));
+                url=types.WebAppInfo(configure.config['webAppNewDamage']+"?grz="+x+"&telephone="+user.phoneNumber+"&base="+urllib.parse.quote(user.base_address));
                 #
                 button = types.KeyboardButton(text=_("Form an act"), web_app=url)
                 keyboard.add(button)
@@ -272,9 +272,9 @@ def process_car_odometer_check(message):
             else: 
                 restart(message);
             return
-    except Exception as e:
-        msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
-        restart(msg)
+    #except Exception as e:
+     #   msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
+      #  restart(msg)
 
 #Предрейсовый осмотр - ввод номера телефона водителя
 def process_car_inspection(message):
@@ -348,7 +348,7 @@ def process_car_inspection_odometer(message):
                 carInfo=serverFuncs.getOdometer(user.plates)
                 if carInfo[0]==True and (carInfo[1]<int(message.text)):
                     x=urllib.parse.quote(user.plates)
-                    url=types.WebAppInfo(configure.webAppPretrip+"?grz="+str(x)+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(message.text)+"&base="+urllib.parse.quote(user.base_address));
+                    url=types.WebAppInfo(configure.config['webAppPretrip']+"?grz="+str(x)+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(message.text)+"&base="+urllib.parse.quote(user.base_address));
                     print(url)
                     button = types.KeyboardButton(text=_("Car check"), web_app=url)
                     keyboard.add(button)

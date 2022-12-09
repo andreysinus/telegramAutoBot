@@ -6,10 +6,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2022-12-06 15:58+0300\n"
-"PO-Revision-Date: 2022-12-06 16:15+0300\n"
+"PO-Revision-Date: 2022-12-09 11:25+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ru_RU\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -139,7 +139,7 @@ msgstr "Команда не найдена"
 
 #: main.py:233
 msgid "Mileage meets conditions"
-msgstr "Пробег соответствует пробегу"
+msgstr "Пробег соответствует условиям"
 
 #: main.py:238
 msgid "Form an act"
