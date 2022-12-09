@@ -64,7 +64,6 @@ def getOdometer(grz):
             data["Success"]
         ]
         return odometer  
-
 def getDriver(driverPhone):
     url = f"https://тест.атимо.рф/ATM/hs/WebApp/GetDriver?driver_phone={driverPhone}"
 
