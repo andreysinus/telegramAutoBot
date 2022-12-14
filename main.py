@@ -52,21 +52,23 @@ def createInlineKeyboardWithFuncs():
 
 def checkLang(message):
     if message.from_user.language_code=="ru":
-        user_lang[message.chat.id]=1
+        user_lang[message.chat.id]="ru"
         ru.install()
     else:
-        user_lang[message.chat.id]=2
+        user_lang[message.chat.id]="en"
         en.install()
     return True
 
+
+
 def changeLanguage(message):
-    if user_lang[message.chat.id]==1:
-        user_lang[message.chat.id]=2
+    if user_lang[message.chat.id]=="ru":
+        user_lang[message.chat.id]="en"
         en.install()
         msg= bot.send_message(message.chat.id,"Language changed to English")
         restart(msg)
     else:
-        user_lang[message.chat.id]=1
+        user_lang[message.chat.id]="ru"
         ru.install()
         msg= bot.send_message(message.chat.id,"Язык изменен на русский")
         restart(msg)
@@ -253,8 +255,9 @@ def process_car_odometer_check(message):
                 bot.reply_to(message, _("Mileage meets conditions"))
                 user.odometer=int(message.text)
                 x=urllib.parse.quote(user.plates)
-                url=types.WebAppInfo(configure.config['webAppNewDamage']+"?grz="+x+"&telephone="+user.phoneNumber+"&base="+urllib.parse.quote(user.base_address));
-                #
+                #print(user_lang[chat_id])
+                url=types.WebAppInfo(configure.config['webAppNewDamage']+"?grz="+x+"&telephone="+user.phoneNumber+"&lang="+user_lang[chat_id]+"&base="+urllib.parse.quote(user.base_address))
+                #print(url)
                 button = types.KeyboardButton(text=_("Form an act"), web_app=url)
                 keyboard.add(button)
                 msg=bot.send_message(chat_id, _("Next, you need to create an act"), reply_markup=keyboard)
@@ -346,11 +349,11 @@ def process_car_inspection_odometer(message):
         if findComands(message)==False:
             if message.text!="Назад" or message.text!="Отмена" or message.text!="Cancel" or message.text!="Back":
                 carInfo=serverFuncs.getOdometer(user.plates)
-                print(carInfo)
+                #print(carInfo)
                 if carInfo[0]==True and (carInfo[1]<int(message.text)):
                     x=urllib.parse.quote(user.plates)
-                    url=types.WebAppInfo(configure.config['webAppPretrip']+"?grz="+str(x)+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(message.text)+"&base="+urllib.parse.quote(user.base_address));
-                    print(url)
+                    url=types.WebAppInfo(configure.config['webAppPretrip']+"?grz="+str(x)+"&lang="+user_lang[chat_id]+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(message.text)+"&base="+urllib.parse.quote(user.base_address));
+                    #print(url)
                     button = types.KeyboardButton(text=_("Car check"), web_app=url)
                     keyboard.add(button)
                     msg=bot.send_message(chat_id, _("To go through the list of checks, click on the button \"Car check\""), reply_markup=keyboard)
