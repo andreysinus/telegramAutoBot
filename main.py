@@ -51,12 +51,13 @@ def createInlineKeyboardWithFuncs():
     return inlineKeyboard
 
 def checkLang(message):
-    if message.from_user.language_code=="ru":
-        user_lang[message.chat.id]="ru"
-        ru.install()
-    else:
-        user_lang[message.chat.id]="en"
-        en.install()
+    if  user_lang[message.chat.id]==None:
+        if message.from_user.language_code=="ru":
+            user_lang[message.chat.id]="ru"
+            ru.install()
+        else:
+            user_lang[message.chat.id]="en"
+            en.install()
     return True
 
 
