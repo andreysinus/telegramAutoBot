@@ -152,6 +152,7 @@ def process_choose_func(call):
             else:
                 if call.data == 'to_start':
                     msg=bot.send_message(chat_id, _("Exit"))
+                    start_ex(msg)
         return
     except Exception as e:
         msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
