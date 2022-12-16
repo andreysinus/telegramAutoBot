@@ -181,7 +181,7 @@ def process_choose_func(call):
 
 # Приёмка авто - Проверка авто
 def process_car_accept(message):
-    #try:
+    try:
         chat_id=message.chat.id
         user = user_dict[chat_id]
         carInfo=serverFuncs.checkGRZ(message.text, user.base_address)
@@ -211,9 +211,9 @@ def process_car_accept(message):
             else: 
                 restart(message);
             return
-    #except Exception as e:
-     #   msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
-      #  restart(msg)
+    except Exception as e:
+        msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
+        restart(msg)
 
 
 #Приёмка авто - проверка пробега
