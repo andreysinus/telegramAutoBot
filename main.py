@@ -87,14 +87,12 @@ def changeLanguage(message):
         user_lang_dict[message.chat.id]="en"
         en.install()
         msg= bot.send_message(message.chat.id,"Language changed to English")
-        start_ex(message)
-        bot.set_state(message.from_user.id, MyStates.mechanicPhone, message.chat.id)
+        
     else:
         user_lang_dict[message.chat.id]="ru"
         ru.install()
         msg= bot.send_message(message.chat.id,"Язык изменен на русский")
-        start_ex(message)
-        bot.set_state(message.from_user.id, MyStates.mechanicPhone, message.chat.id)
+
 
 
 @bot.message_handler(commands=['start'], func=checkLang)
@@ -106,13 +104,13 @@ def start_ex(message):
 @bot.message_handler(commands=['changelanguage'])
 def change_language_state(message):
     changeLanguage(message)
-    bot.delete_state(message.from_user.id, message.chat.id)
+    start_ex(message)
 
 @bot.message_handler(state=MyStates.mechanicPhone, content_types=['contact', 'text'])
 def name_get(message):
     try:
         chat_id = message.chat.id
-        print(message.content_type)
+        #print(message.content_type)
         if message.content_type=="contact":
             contacts=serverFuncs.checkUser(message.contact.phone_number)
             if (contacts[0]):
