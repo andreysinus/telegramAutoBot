@@ -147,7 +147,7 @@ def name_get(message):
 
 
 #Обработка выбора функции
-@bot.callback_query_handler(func=lambda call: True, state=MyStates.chooseAction, func=testLang)
+@bot.callback_query_handler(func=lambda call: True, state=MyStates.chooseAction)
 def process_choose_func(call):
     try:
         chat_id=call.message.chat.id
