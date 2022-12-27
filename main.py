@@ -103,18 +103,36 @@ def changeLanguage(message):
         msg= bot.send_message(message.chat.id,"Язык изменен на русский")
 
 
-
+#Стартовое сообщение
 @bot.message_handler(commands=['start'], func=checkLang)
 def start_ex(message):
     bot.set_state(message.from_user.id, MyStates.mechanicPhone, message.chat.id)
     bot.send_message(message.chat.id, _("Hello! \nPlease login to get started."), reply_markup='')
     bot.send_message(message.chat.id, _("Press the button at the bottom of the screen or send a phone number (ex. 79998887766) in a message:"), reply_markup=getSendPhoneKeyboard())
 
+#Смена языка
 @bot.message_handler(commands=['changelanguage'])
 def change_language_state(message):
     changeLanguage(message)
     start_ex(message)
 
+#Вывод помощи
+@bot.message_handler(commands=['help'], func=testLang)
+def send_help(message):
+    bot.send_message(message.chat.id, _(""
+"\n"
+"        To start work, you need to authorize using your mobile phone!\n"
+"        \n"
+"Next, you need to select the required operation (for example, \"Pretrip inspection\".\n"
+"        \n"
+"After choosing, follow the bot's instructions.\n"
+"        \n"
+"In case of technical problems, contact:\n"
+"8 (800) 101-40-64, ATIMO technical support hotline.\n"
+"        "), reply_markup='')
+    start_ex(message)
+
+#Приём контакта механика
 @bot.message_handler(state=MyStates.mechanicPhone, content_types=['contact', 'text'], func=testLang)
 def name_get(message):
     try:
