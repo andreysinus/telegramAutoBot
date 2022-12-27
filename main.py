@@ -301,13 +301,14 @@ def process_car_inspection_odometer(message):
         if message.text!="Назад" or message.text!="Отмена" or message.text!="Cancel" or message.text!="Back":
             carInfo=serverFuncs.getOdometer(user.plates)
             #print(carInfo)
-            if carInfo[0]==True and (carInfo[1]-100>int(message.text) and int(message.text)<carInfo[1]+100):
+            if carInfo[0]==True and (carInfo[1]-500<int(message.text) and int(message.text)<=carInfo[1]+500):
                 x=urllib.parse.quote(user.plates)
                 url=types.WebAppInfo(configure.config['webAppPretrip']+"?grz="+str(x)+"&lang="+user_lang_dict[chat_id]+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(message.text)+"&base="+urllib.parse.quote(user.base_address));
                 #print(url)
                 button = types.KeyboardButton(text=_("Car check"), web_app=url)
                 keyboard.add(button)
                 msg=bot.send_message(chat_id, _("To go through the list of checks, click on the button \"Car check\""), reply_markup=keyboard)
+                bot.set_state(message.from_user.id, MyStates.webAppResponse, message.chat.id)
             else: 
                 msg=bot.send_message(chat_id, _("Mileage is not correct, please re-enter"))
         else:
