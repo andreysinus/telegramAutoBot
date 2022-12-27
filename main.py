@@ -84,7 +84,7 @@ def checkLang(message):
 #Проверка языка пользователя
 def testLang(message):
     if user_lang_dict.get(message.chat.id)!=None:
-        if message.from_user.language_code=="ru":
+        if user_lang_dict[message.chat.id]=="ru":
             ru.install()
         else:
             en.install()
