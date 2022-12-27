@@ -292,7 +292,7 @@ def process_car_inspection_odometer(message):
         if message.text!="Назад" or message.text!="Отмена" or message.text!="Cancel" or message.text!="Back":
             carInfo=serverFuncs.getOdometer(user.plates)
             #print(carInfo)
-            if carInfo[0]==True and (carInfo[1]<int(message.text)):
+            if carInfo[0]==True and (carInfo[1]-100>int(message.text) and int(message.text)<carInfo[1]+100):
                 x=urllib.parse.quote(user.plates)
                 url=types.WebAppInfo(configure.config['webAppPretrip']+"?grz="+str(x)+"&lang="+user_lang_dict[chat_id]+"&mechPhone="+str(user.phoneNumber)+"&driverPhone="+str(user.voditel)+"&odo="+str(message.text)+"&base="+urllib.parse.quote(user.base_address));
                 #print(url)
