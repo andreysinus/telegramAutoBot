@@ -81,6 +81,15 @@ def checkLang(message):
             en.install()
     return True
 
+#Проверка языка пользователя
+def testLang(message):
+    if user_lang_dict.get(message.chat.id)!=None:
+        if message.from_user.language_code=="ru":
+            ru.install()
+        else:
+            en.install()
+    return True
+
 #Изменение языка пользователя
 def changeLanguage(message):
     if user_lang_dict[message.chat.id]=="ru":
@@ -106,7 +115,7 @@ def change_language_state(message):
     changeLanguage(message)
     start_ex(message)
 
-@bot.message_handler(state=MyStates.mechanicPhone, content_types=['contact', 'text'])
+@bot.message_handler(state=MyStates.mechanicPhone, content_types=['contact', 'text'], func=testLang)
 def name_get(message):
     try:
         chat_id = message.chat.id
@@ -138,7 +147,7 @@ def name_get(message):
 
 
 #Обработка выбора функции
-@bot.callback_query_handler(func=lambda call: True, state=MyStates.chooseAction)
+@bot.callback_query_handler(func=lambda call: True, state=MyStates.chooseAction, func=testLang)
 def process_choose_func(call):
     try:
         chat_id=call.message.chat.id
@@ -158,7 +167,7 @@ def process_choose_func(call):
         msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
 
 #Приёмка авто - проверка номера авто
-@bot.message_handler(state=MyStates.carAccept)
+@bot.message_handler(state=MyStates.carAccept, func=testLang)
 def car_accept(message):
     try:
         chat_id=message.chat.id
@@ -183,7 +192,7 @@ def car_accept(message):
         msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
 
 #Приёмка авто - проверка пробега
-@bot.message_handler(state=MyStates.mileageAccept)
+@bot.message_handler(state=MyStates.mileageAccept, func=testLang)
 def process_car_accept_check(message):
     try:
         chat_id=message.chat.id
@@ -201,7 +210,7 @@ def process_car_accept_check(message):
         msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
 
 #Приёмка авто - проверка пробега и открытие WebApp 
-@bot.message_handler(state=MyStates.mileageCheck)
+@bot.message_handler(state=MyStates.mileageCheck, func=testLang)
 def process_car_odometer_check(message):
     try:
         chat_id=message.chat.id
@@ -228,7 +237,7 @@ def process_car_odometer_check(message):
         msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
 
 #Обработка результата WebApps-ов
-@bot.message_handler(content_types="web_app_data", state=MyStates.webAppResponse)
+@bot.message_handler(content_types="web_app_data", state=MyStates.webAppResponse, func=testLang)
 def webAppAnswer(message):
     try:
         if message.web_app_data.data=="Акт был сформирован" :
@@ -243,7 +252,7 @@ def webAppAnswer(message):
         msg=bot.send_message(message.chat.id, _('Oops. Something went wrong'))
 
 #Предрейсовый осмотр - проверка номера телефона водителя
-@bot.message_handler(state=MyStates.carPretrip)
+@bot.message_handler(state=MyStates.carPretrip, func=testLang)
 def process_car_inspection(message):
     try:
         chat_id=message.chat.id
@@ -263,7 +272,7 @@ def process_car_inspection(message):
          msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
 
 #Предрейсовый осмотр - ввод номера автомобиля
-@bot.message_handler(state=MyStates.vehicleNumber)
+@bot.message_handler(state=MyStates.vehicleNumber, func=testLang)
 def process_car_inspection_grz(message):
     try:
         chat_id=message.chat.id
@@ -282,7 +291,7 @@ def process_car_inspection_grz(message):
         msg=bot.send_message(chat_id, _('Oops. Something went wrong'))
 
 #Предрейсовый осмотр - ввод пробега и вывод кнопок с WebApp 
-@bot.message_handler(state=MyStates.mileagePretrip)
+@bot.message_handler(state=MyStates.mileagePretrip, func=testLang)
 def process_car_inspection_odometer(message):
     try:
         chat_id=message.chat.id
